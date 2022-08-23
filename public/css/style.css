@@ -121,6 +121,8 @@ main {
 .author-info {
     margin: auto 1rem auto 0;
     font-size: var(--font-size-xxsmall);
+    font-weight: var(--font-weight-thin);
+    letter-spacing: -.02rem;
     display: flex;
     text-align: center;
 }

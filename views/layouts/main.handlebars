@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://use.typekit.net/hzb0lyy.css">
+    <link rel="stylesheet" href="./public/css/style.css">
+    <title>TekTalks</title>
+</head>
+
+<body>
+    <div class="container">
+        <header>
+            <div class="nav-container">
+                <nav>
+                    <a class="link" id="home" href="#home">Home</a>
+                    <a class="link" id="dashboard" href="#dashboard">Dashboard</a>
+                    {{#if loggedIn}}
+                    <a class="link" id="logout" href="/logout">Logout</a>
+                    {{else}}
+                    <a class="link" id="login" href="/login">Login</a>
+                    {{/if}}
+                </nav>
+            </div>
+
+            <div class="title-cont">
+                <h1 class="title">TekTalks</h1>
+            </div>
+        </header>
+
+        <main>
+            {{{body}}}
+        </main>
+    </div>
+
+    {{#if loggedIn}}
+    <script src="./js/logout.js"></script>
+    {{/if}}
+</body>
+
+</html>
