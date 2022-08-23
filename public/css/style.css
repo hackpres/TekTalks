@@ -1,0 +1,68 @@
+*, *::before, *::after {
+    box-sizing: border-box;
+}
+
+:root {
+
+    --clr-bkgrd: #D5EBD1;
+    --clr-bkgrd-dim: #E7F7E4;
+    --clr-drk: #260F0F;
+    --clr-header-txt: #8D8887;
+
+    --font-weight-thin: 300;
+    --font-weight-bold: 700;
+
+    --font-size-xlarge: 3.15rem;
+    --font-size-large: 2.8rem;
+    --font-size-medium: 2.3rem;
+    --font-size-small: 1.75rem;
+    --font-size-xsmall: 1.15rem;
+}
+
+html {
+    width: 100vw;
+    color: var(--clr-drk);
+    background-color: var(--clr-bkgrd);
+}
+
+body {
+    background-color: var(--clr-drk);
+    margin: 0;
+    padding: 0;
+}
+
+.title_cont {
+    /* background-color: var(--clr-drk); */
+    /* width: 100vw; */
+    display: flex;
+    font-size: var(--font-size-medium);
+    font-weight: var(--font-weight-bold);
+}
+
+header {
+    background-color: var(--clr-bkgrd);
+
+    color: var(--clr-drk);
+    width: auto;
+    margin: 1.25rem auto 1.75rem 3.5rem;
+    padding: .5rem 1.25rem;
+    filter: drop-shadow(6px 6px 0 var(--clr-header-txt));
+}
+
+nav {
+    background-color: var(--clr-drk);
+    color: var(--clr-bkgrd);
+    /* padding: 1.5rem auto 1rem 1.25rem; */
+    font-size: var(--font-size-small);
+}
+
+a, a:hover, a:focus, a:active {
+    text-decoration: none;
+    color: inherit;
+}
+
+h1 {
+    margin: 0;
+    padding: 0;
+    border-radius: .5rem;
+}
