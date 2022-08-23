@@ -1,19 +1,23 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
+const User = require('./User');
 
 class Author extends Model {}
 
 Author.init(
   {
-    author_id: {
+    user_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
-      primaryKey: true,
-      autoIncrement: true,
+      references: {
+        model: User,
+        key: 'user_id',
+      }
     },
-    name: {
+    author_name: {
       type: DataTypes.STRING,
       allowNull: false,
+      primaryKey: true,
     },
   },
   {

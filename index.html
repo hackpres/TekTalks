@@ -26,7 +26,7 @@
         </header>
 
         <main>
-            <section class="post-container">
+            <!-- <section class="post-container">
                 <div class="post-header-container">
                     <h3 class="post-header">Why MVC is so important</h3>
                     <h6 class="author-info">Posted by Xandromus on 5/8/2020</h6>
@@ -34,6 +34,33 @@
                 <div class="post-body-container">
                     <p class="post-body">MVC allows developers to maintain a true separation of concerns, devising their code between the Model layer for data, the View layer for design, and the Controller layer for application logic.</p>
                 </div>
+            </section> -->
+
+            <section class="post-container">
+                <div class="post-header-container">
+                    <h3 class="login-header">Login</h3>
+                </div>
+                <form id="login-form" class="post-body-container">
+                    <label for="username">Username</label>
+                    <input type="text" id="login-username" name="username" required>
+                    <label for="password">Password</label>
+                    <input type="password" id="login-password" name="password" required>
+                    <input id="submit" type="submit" value="Login!">
+                    <a id="signup-tag" href="/signup">Sign up instead</a>
+                </form>
+            </section>
+            <section class="post-container">
+                <div class="post-header-container">
+                    <h3 class="login-header">Logout</h3>
+                </div>
+                <form id="signup-form" class="post-body-container">
+                    <label for="username">Username</label>
+                    <input type="text" id="signup-username" name="username" required>
+                    <label for="password">Password</label>
+                    <input type="password" id="signup-password" name="password" required>
+                    <input id="submit" type="submit" value="Sign Up!">
+                    <a id="signup-tag" href="/login">login instead</a>
+                </form>
             </section>
         </main>
     </div>

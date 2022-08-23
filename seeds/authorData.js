@@ -2,12 +2,12 @@ const { Author } = require('../models');
 
 const authordata = [
     {
-        author_id: 1,
-        name: 'Xandromus',
+        user_id: 1,
+        author_name: 'Xandromus',
     },
     {
-        author_id: 2,
-        name: 'Lernantino',
+        user_id: 2,
+        author_name: 'Lernantino',
     },
 ];
 

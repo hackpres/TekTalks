@@ -10,6 +10,7 @@
     --clr-bkgrd-dim: #E7F7E4;
     --clr-drk: #260F0F;
     --clr-header-txt: #8D8887;
+    --clr-button-bkg: #6a6565;
 
     --font-family: usual, sans-serif;
 
@@ -132,7 +133,41 @@ main {
     
 }
 
-
+.login-header {
+    margin-left: 1rem;
+    margin-right: auto;
+    font-size: var(--font-size-xsmall);
+    font-weight: 300;
+    margin-block: .7rem;
+    color: var(--clr-bkgrd);
+}
+label {
+    display: block;
+    margin-bottom: .5rem;
+    font-weight: var(--font-weight-regular);
+}
+input {
+    width: 100%;
+    height: 2rem;
+    margin-bottom: .5rem;
+    border: none;
+}
+#submit {
+    background-color: var(--clr-button-bkg);
+    color: var(--clr-bkgrd-dim);
+    border: none;
+    border-radius: .25rem;
+    font-size: var(--font-size-xsmall);
+    display: flex;
+    text-align: center;
+    justify-content: center;
+}
+#signup-tag {
+    color: var(--clr-header-txt);
+}
+#signup-tag:hover {
+    color: var(--clr-drk);
+}
 .hide {
     display: none;
 }

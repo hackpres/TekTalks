@@ -20,12 +20,9 @@ Blog.init(
       type: DataTypes.STRING,
       allowNull: false,
     },
-    author_id: {
-      type: DataTypes.INTEGER,
-      references: {
-        model: 'author',
-        key: 'author_id',
-      },
+    author_name: {
+      type: DataTypes.STRING,
+      allowNull: false,
     },
     post_date: {
       type: DataTypes.DATEONLY,

@@ -19,7 +19,6 @@ const sess = {
         db: sequelize,
     }),
     cookie: {
-        maxAge: process.env.SESS_LIFETIME,
         sameSite: true,
         secure: true
     }
