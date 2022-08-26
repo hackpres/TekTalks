@@ -1,24 +1,18 @@
 const router = require('express').Router();
-const { Author, Blog } = require('../models');
+const { Post, User, Comment } = require('../models');
+const { unsubscribe } = require('./dashboard-routes');
 
 // GET all blogs for homepage
 router.get('/', async (req, res) => {
   try {
-    const dbBlogData = await Blog.findAll({
-      include: [
-        {
-          model: Blog,
-          attributes: ['title', 'description', 'author_name', 'post_date'],
-        },
-      ],
-    });
+    const dbPostData = await Post.findAll();
 
-    const blogs = dbBlogData.map((blog) =>
-      blog.get({ plain: true })
+    const posts = dbPostData.map((post) =>
+      post.get({ plain: true })
     );
 
     res.render('homepage', {
-      blogs,
+      posts,
       loggedIn: req.session.loggedIn,
     });
   } catch (err) {
@@ -27,49 +21,56 @@ router.get('/', async (req, res) => {
   }
 });
 
-// GET one blog
-router.get('/blogs/:id', async (req, res) => {
+// GET one post
+router.get('/post/:id', async (req, res) => {
   // If the user is not logged in, redirect the user to the login page
   if (!req.session.loggedIn) {
     res.redirect('/login');
   } else {
-    // If the user is logged in, allow them to view the blog
-    try {
-      const dbBlogData = await Blog.findByPk(req.params.id, {
-        include: [
-          {
-            model: Blog,
-            attributes: [
-              'blog_id',
-              'title',
-              'description',
-              'author',
-            ],
-          },
-        ],
-      });
-      const blog = dbBlogData.get({ plain: true });
-      res.render('blog', { blog, loggedIn: req.session.loggedIn });
-    } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
+    // If the user is logged in, allow them to view the post
+      try {
+        const dbPostData = await Post.findByPk(req.params.id, {
+          include: [
+            {
+              model: Comment,
+              attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'creation_date'],
+              include: {
+                model: User,
+                attributes: ['username']
+              }
+            },
+            {
+              model: User,
+              attributes: ['username']
+            }
+          ],
+        })
+          if (!dbPostData) {
+            res.status(404).json({ message: 'No post found with provided id' });
+            return;
+          }
+          const post = dbPostData.get({ plain: true });
+          res.render('single-post', { post, loggedIn: req.session.loggedIn });
+      } catch (err) {
+        console.log(err);
+        res.status(500).json(err);
+      }
     }
-  }
-});
+  });
 
-// GET one author
-router.get('/author/:id', async (req, res) => {
+// GET one comment
+router.get('/posts-comments', async (req, res) => {
   // If the user is not logged in, redirect the user to the login page
   if (!req.session.loggedIn) {
     res.redirect('/login');
   } else {
-    // If the user is logged in, allow them to view the author
+    // If the user is logged in, allow them to view the comment
     try {
-      const dbAuthorData = await Author.findByPk(req.params.id);
+      const dbCommentData = await Comment.findByPk(req.params.id);
 
-      const author = dbAuthorData.get({ plain: true });
+      const comment = dbCommentData.get({ plain: true });
 
-      res.render('author', { author, loggedIn: req.session.loggedIn });
+      res.render('posts-comments', { comment, loggedIn: req.session.loggedIn });
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
@@ -82,8 +83,11 @@ router.get('/login', (req, res) => {
     res.redirect('/');
     return;
   }
-
   res.render('login');
 });
+
+router.get('/signup', (req, res) => {
+  res.render('signup');
+})
 
 module.exports = router;

@@ -1,12 +1,12 @@
 const { Model, DataTypes } = require('sequelize');
 const sequelize = require('../config/connection');
-const { format_date } = require('../utils/helpers');
+const Author = require('./Author');
 
-class Blog extends Model {}
+class Post extends Model {}
 
-Blog.init(
+Post.init(
   {
-    blog_id: {
+    post_id: {
       type: DataTypes.INTEGER,
       allowNull: false,
       primaryKey: true,
@@ -15,26 +15,28 @@ Blog.init(
     title: {
       type: DataTypes.STRING,
       allowNull: false,
+      validate: {
+        len: [1]
+      }
     },
-    description: {
-      type: DataTypes.STRING,
+    post_content: {
+      type: DataTypes.TEXT,
       allowNull: false,
     },
-    author_name: {
-      type: DataTypes.STRING,
-      allowNull: false,
-    },
-    post_date: {
-      type: DataTypes.DATEONLY,
-      get: format_date(),
+    user_id: {
+      type: DataTypes.INTEGER,
+      references: {
+        model: 'user',
+        key: 'user_id'
+      }
     }
   },
   {
     sequelize,
     freezeTableName: true,
     underscored: true,
-    modelName: 'blog',
+    modelName: 'post',
   }
 );
 
-module.exports = Blog;
+module.exports = Post;

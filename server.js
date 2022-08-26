@@ -19,6 +19,7 @@ const sess = {
         db: sequelize,
     }),
     cookie: {
+        maxAge: 7200000,
         sameSite: true,
         secure: true
     }
@@ -26,7 +27,7 @@ const sess = {
 
 app.use(session(sess));
 
-const hbs = exphbs.create({});
+const hbs = exphbs.create({helpers});
 
     //set Handlebars.js as the default template engine.
 app.engine('handlebars', hbs.engine);
