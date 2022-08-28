@@ -1,0 +1,11 @@
+<section class="post-container">
+    {{#each this}}
+    <div class="post-header-container">
+        <h3 class="post-header">Comment</h3>
+        <h6 class="author-info">-{{user.username}}, {{format_date creation_date}}</h6>
+    </div>
+    <div class="post-body-container">
+        <p class="post-body">{{comment_text}}</p>
+    </div>
+    {{/each}}
+</section>

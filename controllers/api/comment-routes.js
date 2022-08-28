@@ -4,7 +4,7 @@ const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
     try {
-        const dbCommentData = await Comment.findAll({});
+        const dbCommentData = Comment.findAll({});
         res.status(200).json(dbCommentData);
     } catch (err) {
         console.log(err);
@@ -14,7 +14,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     try {
-        const dbCommentData = await Comment.findByPk({
+        const dbCommentData = Comment.findByPk({
             where: { comment_id: req.params.id }
         })
         res.status(200).json(dbCommentData);
@@ -26,7 +26,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', withAuth, (req, res) => {
     try {
-    const dbCommentData = await Comment.create({
+    const dbCommentData = Comment.create({
         comment_text: req.body.comment_text,
         post_id: req.body.post_id,
         user_id: req.session.user_id,
@@ -40,7 +40,7 @@ router.post('/', withAuth, (req, res) => {
 
 router.put('/:id', withAuth, (req, res) => {
     try {
-        const dbCommentData = await Comment.update({
+        const dbCommentData = Comment.update({
             comment_text: req.body.comment_text
         },
         {
@@ -59,7 +59,7 @@ router.put('/:id', withAuth, (req, res) => {
 
 router.delete('/:id', withAuth, (req, res) => {
     try {
-        const dbCommentData = await Comment.destroy({
+        const dbCommentData = Comment.destroy({
             where: { comment_id: req.params.id }
         })
         if (!dbCommentData) {

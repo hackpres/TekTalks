@@ -3,7 +3,7 @@ const { User, Post, Comment } = require('../../models');
 
 router.get('/', (req, res) => {
   try {
-    const dbUserData = await User.findAll({
+    const dbUserData = User.findAll({
       attributes: { exclude: ['password'] }
     })
     res.status(200).json(dbUserData);
@@ -15,16 +15,16 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
   try {
-    const dbUserData = await User.findByPk({
+    const dbUserData = User.findOne({
       attributes: { exclude: ['password'] },
       where: { user_id: req.params.id },
       include: [{
         model: Post,
-        attributes: ['post_id', 'title', 'post_content', 'creation_date'],
+        attributes: ['post_id', 'title', 'post_content', 'created_at'],
       },
       {
         model: Comment,
-        attributes: ['comment_id', 'comment_text', 'creation_date'],
+        attributes: ['comment_id', 'comment_text', 'created_at'],
         include: {
           model: Post,
           attributes: ['title']
@@ -50,7 +50,7 @@ router.get('/:id', (req, res) => {
 // CREATE new user
 router.post('/', async (req, res) => {
   try {
-    const dbUserData = await User.create({
+    const dbUserData = User.create({
       username: req.body.username,
       password: req.body.password,
     });
@@ -59,9 +59,9 @@ router.post('/', async (req, res) => {
       req.session.user_id = dbUserData.user_id;
       req.session.username = dbUserData.username;
       req.session.loggedIn = true;
-
-      res.status(200).json(dbUserData);
     });
+    
+    res.status(200).json(dbUserData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -71,7 +71,7 @@ router.post('/', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   try {
-    const dbUserData = await User.findOne({
+    const dbUserData = User.findOne({
       where: {
         username: req.body.username,
       },
@@ -81,6 +81,7 @@ router.post('/login', async (req, res) => {
       res.status(400).json({ message: 'No user with that username was found!' });
       return;
     }
+    console.log(dbUserData);
     const validPassword = dbUserData.checkPassword(req.body.password);
 
     if (!validPassword) {
@@ -116,7 +117,7 @@ router.post('/logout', (req, res) => {
 
 router.put('/:id', (req, res) => {
   try {
-    const dbUserData = await User.update({
+    const dbUserData = User.update({
       where: {
         user_id: req.params.id
       }
@@ -134,7 +135,7 @@ router.put('/:id', (req, res) => {
 
 router.delete('/:id', (req, res) => {
   try {
-    const dbUserData = await User.destroy({
+    const dbUserData = User.destroy({
       where: { user_id: req.params.id }
     })
     if (!dbUserData) {

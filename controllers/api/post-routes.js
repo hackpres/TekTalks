@@ -4,16 +4,16 @@ const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
     try {
-        const dbPostData = await Post.findAll({
-            attributes: ['post_id', 'title', 'post_content', 'creation_date'],
-            order: [['creation_date', 'DESC']],
+        const dbPostData = Post.findAll({
+            attributes: ['post_id', 'title', 'post_content', 'created_at'],
+            order: [['created_at', 'DESC']],
             include: [{
                 model: User,
                 attributes: ['username']
             },
             {
                 model: Comment,
-                attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'cration_date'],
+                attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'created_at'],
                 include: {
                     model: User,
                     attributes: ['username']
@@ -29,7 +29,7 @@ router.get('/', (req, res) => {
 
 router.get('/:id', (req, res) => {
     try {
-        const dbPostData = await Post.findByPk({
+        const dbPostData = Post.findByPk({
             where: {
                 post_id: req.params.id
             },
@@ -58,7 +58,7 @@ router.get('/:id', (req, res) => {
 
 router.post('/', withAuth, (req, res) => {
     try {
-        const dbPostData = await Post.create({
+        const dbPostData = Post.create({
             title: req.body.title,
             post_content: req.body.post_content,
             user_id: req.session.user_id
@@ -72,7 +72,7 @@ router.post('/', withAuth, (req, res) => {
 
 router.put('/:id', withAuth, (req, res) => {
     try {
-        const dbPostData = await Post.update({
+        const dbPostData = Post.update({
             title: req.body.title,
             post_content: req.body.post_content
         },
@@ -92,7 +92,7 @@ router.put('/:id', withAuth, (req, res) => {
 
 router.delete('/:id', withAuth, (req, res) => {
     try {
-        const dbPostData = await Post.destroy({
+        const dbPostData = Post.destroy({
             where: { post_id: req.params.id }
         })
         if (!dbPostData) {

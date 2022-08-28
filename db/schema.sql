@@ -1,4 +1,4 @@
-DROP DATABASE IF EXISTS tektalks_db;
+DROP DATABASE IF EXISTS tektalk_db;
 
-CREATE DATABASE tektalks_db;
-USE tektalks_db;
+CREATE DATABASE tektalk_db;
+USE tektalk_db;

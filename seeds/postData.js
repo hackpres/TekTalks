@@ -12,7 +12,7 @@ const postdata = [
         user_id: 1,
     },
     {
-        title: 'Object-Relationsal Mapping',
+        title: 'Object-Relational Mapping',
         post_content: 'I have really loved learning about ORMs. It has really simplified the way I create queries in SQL!',
         user_id: 2,
     },

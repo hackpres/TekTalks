@@ -5,7 +5,12 @@ const { unsubscribe } = require('./dashboard-routes');
 // GET all blogs for homepage
 router.get('/', async (req, res) => {
   try {
-    const dbPostData = await Post.findAll();
+    const dbPostData = await Post.findAll({
+      include: {
+        model: User,
+        attributes: ['username']
+      }
+    });
 
     const posts = dbPostData.map((post) =>
       post.get({ plain: true })
@@ -33,7 +38,7 @@ router.get('/post/:id', async (req, res) => {
           include: [
             {
               model: Comment,
-              attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'creation_date'],
+              attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'created_at'],
               include: {
                 model: User,
                 attributes: ['username']

@@ -100,12 +100,14 @@ h1 {
 main {
     padding-top: 1.5rem;
     background: var(--clr-bkgrd);
-    display: flex;
-    justify-content: center;
 }
 .post-container {
+    display: block;
+    margin: 0 auto .5rem auto;
     width: 90vw;
-    margin-bottom: .35rem;    
+}
+.post-container:hover .post-header {
+    color: var(--clr-bkgrd);
 }
 .post-header-container {
     background-color: var(--clr-drk);

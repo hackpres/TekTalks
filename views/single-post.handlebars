@@ -1,0 +1,18 @@
+{{> post-details post}}
+
+{{#if loggedIn}}
+<section class="post-container">
+    <form id="comment-form" class="post-body-container">
+        <label for="comment">Comment</label>
+        <input type="text" id="username" name="comment">
+
+        <input id="submit" type="submit" name="submit-comment" value="Submit!">
+    </form>
+</section>
+{{/if}}
+
+{{>comments post.post_comments}}
+
+{{#if loggedIn}}
+<script src="./js/comment.js"></script>
+{{/if}}

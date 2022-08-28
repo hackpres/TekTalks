@@ -1,11 +1,11 @@
 <section class="post-container">
-    <a href="/blog/{{blog_id}}">
+    <a href="/post/{{post_id}}">
         <div class="post-header-container">
             <h3 class="post-header">{{title}}</h3>
-            <h6 class="author-info">Posted by {{author_name}} on {{post_date}}</h6>
+            <h6 class="author-info">Posted by {{user.username}} on {{format_date creation_date}}</h6>
         </div>
         <div class="post-body-container">
-            <p class="post-body">{{description}}</p>
+            <p class="post-body">{{post_content}}</p>
         </div>
     </a>
 </section>
