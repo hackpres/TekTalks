@@ -1,4 +1,6 @@
-{{#if posts.length}}
+<button type="submit" id="submit"><a href="/dashboard/new">+ New Post</a></button>
+
+{{#if posts}}
 <section class="post-container">
     <div class="post-header-container">
         <h2 class="post-header">Your Posts</h2>
@@ -8,7 +10,5 @@
     </div>
 </section>
 {{/if}}
-
-<button type="submit" id="submit"><a class="" href="/dashboard/new">+ New Post</a></button>
 
 <script src="/js/create-post.js"></script>

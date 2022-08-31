@@ -1,6 +1,5 @@
 const router = require('express').Router();
 const { Post, User, Comment } = require('../models');
-const { unsubscribe } = require('./dashboard-routes');
 
 // GET all blogs for homepage
 router.get('/', async (req, res) => {
@@ -38,7 +37,7 @@ router.get('/post/:id', async (req, res) => {
           include: [
             {
               model: Comment,
-              attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+              attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'createdAt'],
               include: {
                 model: User,
                 attributes: ['username']

@@ -2,6 +2,10 @@
     <a href="/dashboard/edit/{{post_id}}">
         <div class="post-header-container">
             <h3 class="post-header">{{title}}</h3>
+            <h6 class="author-info">Posted by {{user.username}} on {{format_date creation_date}}</h6>
+        </div>
+        <div class="post-body-container">
+            <p class="post-body">{{post_content}}</p>
         </div>
     </a>
 </section>

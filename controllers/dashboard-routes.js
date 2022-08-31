@@ -3,14 +3,14 @@ const res = require('express/lib/response');
 const { Post, User, Comment } = require('../models');
 const withAuth = require('../utils/auth');
 
-router.get('/', withAuth, (req, res) => {
+router.get('/', withAuth, async (req, res) => {
     try {
-        const dbPostData = Post.findAll({
+        const dbPostData = await Post.findAll({
             where: { user_id: req.session.user_id },
-            attributes: ['id', 'title', 'content', 'created_at'],
+            attributes: ['post_id', 'title', 'post_content', 'createdAt'],
             include: [{
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'createdAt'],
                 include: { model: User, attributes: ['username'] }
             },
             {
@@ -29,16 +29,16 @@ router.get('/', withAuth, (req, res) => {
 
 router.get('/edit/:id', withAuth, (req, res) => {
     try {
-        const dbPostData =  Post.findOne({
-            where: { id: req.params.id },
-            attributes: ['id', 'title', 'content', 'created_at'],
+        const dbPostData = Post.findOne({
+            where: { post_id: req.params.id },
+            attributes: ['id', 'title', 'content', 'createdAt'],
             include: [{
                 model: User,
                 attributes: ['username']
             },
             {
                 model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'created_at'],
+                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'createdAt'],
                 include: {
                     model: User,
                     attributes: ['username']

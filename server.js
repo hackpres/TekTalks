@@ -3,6 +3,7 @@ const express = require('express');
 const session = require('express-session');
 const exphbs = require('express-handlebars');
 const SequelizeStore = require('connect-session-sequelize')(session.Store);
+const cookieParser = require('cookie-parser');
 
 const routes = require('./controllers');
 const sequelize = require('./config/connection');
@@ -15,13 +16,14 @@ const sess = {
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
+    name: "userCookie",
     store: new SequelizeStore({
         db: sequelize,
     }),
     cookie: {
         maxAge: 7200000,
         sameSite: true,
-        secure: true
+        // secure: true
     }
 }
 
@@ -36,9 +38,10 @@ app.set('view engine', 'handlebars');
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(cookieParser());
 
 app.use(routes);
 
-sequelize.sync({ force: false }).then(() => {
+sequelize.sync({ force: false }).then(() => { 
     app.listen(PORT, () => console.log(`Server connected: listening on localhost port: ${PORT}`));
 })

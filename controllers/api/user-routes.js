@@ -20,11 +20,11 @@ router.get('/:id', (req, res) => {
       where: { user_id: req.params.id },
       include: [{
         model: Post,
-        attributes: ['post_id', 'title', 'post_content', 'created_at'],
+        attributes: ['post_id', 'title', 'post_content', 'createdAt'],
       },
       {
         model: Comment,
-        attributes: ['comment_id', 'comment_text', 'created_at'],
+        attributes: ['comment_id', 'comment_text', 'createdAt'],
         include: {
           model: Post,
           attributes: ['title']
@@ -50,15 +50,15 @@ router.get('/:id', (req, res) => {
 // CREATE new user
 router.post('/', async (req, res) => {
   try {
-    const dbUserData = User.create({
+    const dbUserData = await User.create({
       username: req.body.username,
       password: req.body.password,
     });
-
-    req.session.save(() => {
-      req.session.user_id = dbUserData.user_id;
-      req.session.username = dbUserData.username;
-      req.session.loggedIn = true;
+    req.session.user_id = dbUserData.user_id;
+    req.session.username = dbUserData.username;
+    req.session.loggedIn = true;
+    req.session.save((err) => {
+      if (err) return next(err);
     });
     
     res.status(200).json(dbUserData);
@@ -71,14 +71,14 @@ router.post('/', async (req, res) => {
 // Login
 router.post('/login', async (req, res) => {
   try {
-    const dbUserData = User.findOne({
+    const dbUserData = await User.findOne({
       where: {
         username: req.body.username,
       },
     });
 
     if (!dbUserData) {
-      res.status(400).json({ message: 'No user with that username was found!' });
+      res.status(400).json({ message: 'No user with provided username was found!' });
       return;
     }
     console.log(dbUserData);
@@ -89,15 +89,17 @@ router.post('/login', async (req, res) => {
         .status(400)
         .json({ message: 'Incorrect password. Please try again!' });
       return;
+    } else {
+        req.session.user_id = dbUserData.user_id;
+        req.session.username = dbUserData.username;
+        req.session.loggedIn = true;
+        console.log(req.session);
+        req.session.save((err) => {
+        if(err) return next(err);
+
+        res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
+      });
     }
-
-    req.session.save(() => {
-      req.session.user_id = dbUserData.user_id;
-      req.session.username = dbUserData.username;
-      req.session.loggedIn = true;
-
-      res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
-    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
