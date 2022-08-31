@@ -13,7 +13,7 @@ const app = express();
 const PORT = process.env.PORT || 3001;
 
 const sess = {
-    secret: process.env.SESSION_SECRET,
+    secret: "process/env%SESSION_SECRET",
     resave: false,
     saveUninitialized: true,
     name: "userCookie",
@@ -23,7 +23,7 @@ const sess = {
     cookie: {
         maxAge: 7200000,
         sameSite: true,
-        // secure: true
+        secure: true
     }
 }
 
