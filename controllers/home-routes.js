@@ -45,7 +45,7 @@ router.get('/post/:id', async (req, res) => {
             },
             {
               model: User,
-              attributes: ['username']
+              attributes: ['user_id', 'username']
             }
           ],
         })
@@ -62,25 +62,25 @@ router.get('/post/:id', async (req, res) => {
     }
   });
 
-// GET one comment
-router.get('/posts-comments', async (req, res) => {
-  // If the user is not logged in, redirect the user to the login page
-  if (!req.session.loggedIn) {
-    res.redirect('/login');
-  } else {
-    // If the user is logged in, allow them to view the comment
-    try {
-      const dbCommentData = await Comment.findByPk(req.params.id);
+// // GET one comment
+// router.get('/posts-comments', async (req, res) => {
+//   // If the user is not logged in, redirect the user to the login page
+//   if (!req.session.loggedIn) {
+//     res.redirect('/login');
+//   } else {
+//     // If the user is logged in, allow them to view the comment
+//     try {
+//       const dbCommentData = await Comment.findByPk(req.params.id);
 
-      const comment = dbCommentData.get({ plain: true });
+//       const comment = dbCommentData.get({ plain: true });
 
-      res.render('posts-comments', { comment, loggedIn: req.session.loggedIn });
-    } catch (err) {
-      console.log(err);
-      res.status(500).json(err);
-    }
-  }
-});
+//       res.render('posts-comments', { comment, loggedIn: req.session.loggedIn });
+//     } catch (err) {
+//       console.log(err);
+//       res.status(500).json(err);
+//     }
+//   }
+// });
 
 router.get('/login', (req, res) => {
   if (req.session.loggedIn) {

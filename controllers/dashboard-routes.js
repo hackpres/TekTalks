@@ -28,37 +28,32 @@ router.get('/', withAuth, async (req, res) => {
 });
 
 router.get('/edit/:id', withAuth, (req, res) => {
-    try {
-        const dbPostData = Post.findOne({
-            where: { post_id: req.params.id },
-            attributes: ['id', 'title', 'content', 'createdAt'],
-            include: [{
+    Post.findOne({
+        where: { post_id: req.params.id },
+        attributes: ['post_id', 'title', 'post_content', 'createdAt'],
+        include: [{
+            model: User,
+            attributes: ['username']
+        },
+        {
+            model: Comment,
+            attributes: ['comment_id', 'comment_text', 'post_id', 'user_id', 'createdAt'],
+            include: {
                 model: User,
                 attributes: ['username']
-            },
-            {
-                model: Comment,
-                attributes: ['id', 'comment_text', 'post_id', 'user_id', 'createdAt'],
-                include: {
-                    model: User,
-                    attributes: ['username']
-                }
-            }]
-        })
+            }
+        }]
+    }).then(dbPostData => {
         if (!dbPostData) {
             res.status(404).json({ message: 'No post found with provided id' });
             return;
         }
         const post = dbPostData.get({ plain: true });
-        res.render('edit-post', { post, loggedIn: true });
-    } catch (err) {
+        res.render('update-post', { post, loggedIn: true });
+    }).catch(err => {
         console.log(err);
         res.status(500).json(err);
-    }
-});
-
-router.get('/new', (req, res) => {
-    res.render('new-post');
+    });
 });
 
 module.exports = router;

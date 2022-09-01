@@ -74,6 +74,9 @@ a, a:hover, a:focus, a:active {
     text-decoration: none;
     color: inherit;
 }
+.link:hover {
+    text-decoration: underline;
+}
 
 .title-cont {
     background-color: var(--clr-bkgrd);
@@ -101,10 +104,18 @@ main {
     padding-top: 1.5rem;
     background: var(--clr-bkgrd);
 }
-.post-container {
+.post-container, .posts-container {
     display: block;
     margin: 0 auto .5rem auto;
     width: 90vw;
+}
+.posts-container {
+    background-color: var(--clr-header-txt);
+    color: var(--clr-drk);
+    padding: 1rem;
+    font-size: var(--font-size-xsmall);
+    font-weight: var(--font-weight-thin);
+    border-radius: .5rem;
 }
 .post-container:hover .post-header {
     color: var(--clr-bkgrd);
@@ -114,7 +125,7 @@ main {
     color: var(--clr-header-txt);
     display: flex;
 }
-.post-header {
+.post-header, .comment-header {
     margin-left: 1rem;
     margin-right: auto;
     font-size: var(--font-size-xsmall);
@@ -154,7 +165,7 @@ input {
     margin-bottom: .5rem;
     border: none;
 }
-#submit {
+#submit, #login {
     background-color: var(--clr-button-bkg);
     color: var(--clr-bkgrd-dim);
     border: none;
@@ -163,6 +174,9 @@ input {
     display: flex;
     text-align: center;
     justify-content: center;
+}
+#submit:hover, #login:hover {
+    color: var(--clr-header-txt);
 }
 #signup-tag {
     color: var(--clr-header-txt);

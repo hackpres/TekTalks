@@ -54,14 +54,17 @@ router.post('/', async (req, res) => {
       username: req.body.username,
       password: req.body.password,
     });
-    req.session.user_id = dbUserData.user_id;
-    req.session.username = dbUserData.username;
-    req.session.loggedIn = true;
+    req.session.regenerate((err) => {
+      if(err) return next(err);
+      req.session.user_id = dbUserData.user_id;
+      req.session.username = dbUserData.username;
+      req.session.loggedIn = true;
+      console.log(req.session);
+    })
     req.session.save((err) => {
-      if (err) return next(err);
+      if(err) return next(err);
+      res.status(200).json({ user: dbUserData });
     });
-    
-    res.status(200).json(dbUserData);
   } catch (err) {
     console.log(err);
     res.status(500).json(err);
@@ -81,25 +84,27 @@ router.post('/login', async (req, res) => {
       res.status(400).json({ message: 'No user with provided username was found!' });
       return;
     }
-    console.log(dbUserData);
     const validPassword = dbUserData.checkPassword(req.body.password);
-
     if (!validPassword) {
       res
         .status(400)
         .json({ message: 'Incorrect password. Please try again!' });
       return;
-    } else {
+    }
+    req.session.regenerate((err) => {
+      if(err) return next(err);
+      req.session.save((err) => {
+        if(err) return next(err)
         req.session.user_id = dbUserData.user_id;
         req.session.username = dbUserData.username;
         req.session.loggedIn = true;
         console.log(req.session);
-        req.session.save((err) => {
-        if(err) return next(err);
 
-        res.status(200).json({ user: dbUserData, message: 'You are now logged in!' });
-      });
-    }
+        res.json({ user: dbUserData, message: 'You are now logged in!' });
+        // res.render('/dashboard', { dbUserData, loggedIn: req.session.loggedIn});
+        return;
+      })
+    });
   } catch (err) {
     console.log(err);
     res.status(500).json(err);

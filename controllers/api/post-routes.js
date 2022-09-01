@@ -77,7 +77,7 @@ router.put('/:id', withAuth, (req, res) => {
             post_content: req.body.post_content
         },
         {
-            where: { id: req.params.id }
+            where: { post_id: req.params.id }
         })
         if (!dbPostData) {
             res.status(404).json({ message: 'No post found with provided id' });

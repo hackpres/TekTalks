@@ -1,3 +1,4 @@
+{{#if loggedIn}}
 <section class="post-container">
     <div class="post-header-container">
         <h3 class="login-header">Edit Post</h3>
@@ -9,9 +10,9 @@
         <input type="text" id="login-password" name="content" value="{{post.post_content}}">
         <input id="submit" type="submit" value="Update Post!">
         <input id="submit" type="button" name="delete-post" value="Delete Post!">
-        <a id="signup-tag" href="/signup">Sign up instead</a>
     </form>
 </section>
+{{/if}}
 
-<script src="./js/update-post.js"></script>
-<script src="./js/delete-post.js"></script>
+<script defer src="/js/update-post.js"></script>
+<script defer src="/js/delete-post.js"></script>

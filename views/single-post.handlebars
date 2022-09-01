@@ -1,5 +1,7 @@
 {{> post-details post}}
 
+{{> comments post.comments}}
+
 {{#if loggedIn}}
 <section class="post-container">
     <form id="comment-form" class="post-body-container">
@@ -11,8 +13,8 @@
 </section>
 {{/if}}
 
-{{>comments post.post_comments}}
+
 
 {{#if loggedIn}}
-<script src="./js/comment.js"></script>
+<script src="/js/comment.js"></script>
 {{/if}}
