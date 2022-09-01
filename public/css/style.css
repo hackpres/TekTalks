@@ -125,12 +125,22 @@ main {
     color: var(--clr-header-txt);
     display: flex;
 }
+.comment-header-container {
+    background-color: var(--clr-header-txt);
+    color: var(--clr-bkgrd-dim);
+    display: flex;
+}
 .post-header, .comment-header {
     margin-left: 1rem;
     margin-right: auto;
     font-size: var(--font-size-xsmall);
     font-weight: 300;
     margin-block: .7rem;
+}
+#commenterTag {
+    font-size: var(--font-size-xsmall);
+    padding: .5rem;
+    margin-left: 20vw;
 }
 .author-info {
     margin: auto 1rem auto 0;
@@ -143,7 +153,10 @@ main {
 .post-body-container {
     padding: 1rem;
     border: solid 3px var(--clr-drk);
-    
+}
+.comment-body-container {
+    padding: 1rem;
+    border: solid 3px var(--clr-header-txt);
 }
 
 .login-header {
