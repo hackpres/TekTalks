@@ -33,7 +33,10 @@ npm i
 You will need to create a user by navigating to login, and selecting "signup". You will automatically be redirected to your dashboard, where you will be able to see, update, and even delete your future posts! Feel free to go ahead and create one. Once logged in, you can view all the posts and even comment with other users on various posts! The limit is really up to you and your post writing.<br/>
 
 <img src="./public/img/login.png" width="800"/><br/>
-<img src="./public/img/dashboard.png" width="800"/>
+<img src="./public/img/createUserRoute.png" width="800"/><br/>
+<img src="./public/img/loginUserRoute.png" width="800"/><br/>
+<img src="./public/img/dashboard.png" width="800"/><br/>
+<img src="./public/img/dashboardRoute.png" width="800"/>
 
 
 ### License
